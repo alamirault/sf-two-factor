@@ -8,11 +8,30 @@
 
 namespace App\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ */
 class Customer implements UserInterface
 {
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=16, nullable=true)
+     */
+    private $googleAuthenticatorSecret;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $login;
 
     public function __construct(string $login)
@@ -20,9 +39,26 @@ class Customer implements UserInterface
         $this->login = $login;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getLogin(): string
     {
         return $this->login;
+    }
+
+    public function getGoogleAuthenticatorSecret(): ?string
+    {
+        return $this->googleAuthenticatorSecret;
+    }
+
+    public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): self
+    {
+        $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
+
+        return $this;
     }
 
     public function getRoles()

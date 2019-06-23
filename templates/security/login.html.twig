@@ -3,22 +3,29 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+   <div class="container">
+       <form method="post">
+           {% if error %}
+               <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+           {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputLogin" class="sr-only">Login</label>
-        <input type="text" value="{{ last_login }}" name="login" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+           <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+           <div>
+               <label for="inputLogin" class="sr-only">Login</label>
+               <input type="text" value="{{ last_login }}" name="login" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
+           </div>
+           <div>
+               <label for="inputPassword" class="sr-only">Password</label>
+               <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+           </div>
+
+           <input type="hidden" name="_csrf_token"
+                  value="{{ csrf_token('authenticate') }}"
+           >
+           <button class="btn btn-lg btn-primary" type="submit">
+               Sign in
+           </button>
+       </form>
+   </div>
 {% endblock %}
