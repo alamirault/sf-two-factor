@@ -10,11 +10,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Security\Core\User\EquatableInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
  */
-class Customer implements UserInterface
+class Customer implements UserInterface, EquatableInterface
 {
     /**
      * @ORM\Id()
@@ -85,5 +85,9 @@ class Customer implements UserInterface
     public function eraseCredentials()
     {
        return null;
+    }
+    
+    public function isEqualTo(UserInterface $user){
+      return $this->getLogin() === $user->getLogin()  
     }
 }
